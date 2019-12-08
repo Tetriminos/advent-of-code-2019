@@ -2,23 +2,6 @@ const solve = inputArray => {
   let input = inputArray[0].split(',').map(Number);
   const inputValue = 1;
 
-  // yay_label:
-  // for (let i = 0; i < input.length; i += 4) {
-  //   const [opcode, first, second, dest] = input.slice(i, i + 4);
-  //   switch (opcode) {
-  //     case 1:
-  //       input[dest] = input[first] + input[second];
-  //       break;
-  //     case 2:
-  //       input[dest] = input[first] * input[second];
-  //       break;
-  //     case 3:
-
-  //     case 99:
-  //       break yay_label;
-  //   }
-  // }
-
   let i = 0;
   while (true) {
     const opcodeWithParams = input[i];
