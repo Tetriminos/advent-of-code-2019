@@ -1,15 +1,33 @@
 const { compute } = require('./intcodeComputer');
 
 const solve = inputArray => {
-  const sequences = permutator([0, 1, 2, 3, 4]);
+  const sequences = permutator([9, 8, 7, 6, 5]);
 
   const highest = Math.max(...sequences.map(sequence => {
-    let toInput = 0;
+    const computers = {};
+
     for (let i = 0; i < 5; i++) {
-      toInput = compute([...inputArray], [sequence[i], toInput])
-      // console.log('lololol', i, toInput);
+      computers[i] = {};
+      computers[i].inputArr = [sequence[i]];
+      computers[i].generator = compute([...inputArray], computers[i].inputArr)
     }
-    return toInput;
+
+    let toInput = 0;
+    let lastEOutput;
+    for (let i = 0;; i++) {
+      computers[i%5].inputArr.push(toInput);
+      toInput = computers[i%5].generator.next().value;
+
+      if (toInput === undefined) {
+        break;
+      }
+
+      if (i%5 === 4) {
+        lastEOutput = toInput;
+      }
+    }
+
+    return lastEOutput;
   }));
 
   return highest;
